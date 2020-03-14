@@ -27,7 +27,7 @@ mysql = MySQL(app)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html',user_logged_in=False)
 
 
 @app.route('/recommendation')
@@ -98,7 +98,7 @@ def login():
             session['id'] = account['id']
             session['username'] = account['Username']
             # Redirect to home page
-            return render_template('base.html',user_logged_in=True)
+            return render_template('home.html',user_logged_in=True)
         else:
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
@@ -147,7 +147,7 @@ def register():
         cursor.execute("INSERT INTO user( `Username`, `Email`, `Mob_no`, `Age`, `Password`) VALUES (%s,%s,%s,%s,%s)",(username, email, mob_no, age, password))
         mysql.connection.commit()
         msg = 'You have successfully registered!'
-
+        
 
     elif request.method == 'POST':
         # Form is empty... (no POST data)
@@ -159,13 +159,17 @@ def register():
 @app.route("/favorite", methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-        name = request.form["name"]
-        user_id = session['id']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
-        mysql.connection.commit()
-        print('favorite movie added to db')
-        return name + " Hello"
+
+        if session['id'] :
+            name = request.form["name"]
+            user_id = session['id']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
+            mysql.connection.commit()
+            print('favorite movie added to db')
+            return name + " Hello"
+        else:
+            return redirect(url_for('login'))
     return render_template("base.html")
 
 
