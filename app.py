@@ -159,17 +159,13 @@ def register():
 @app.route("/favorite", methods=['GET', 'POST'])
 def index():
     if request.method == "POST":
-
-        if session['id'] :
-            name = request.form["name"]
-            user_id = session['id']
-            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
-            mysql.connection.commit()
-            print('favorite movie added to db')
-            return name + " Hello"
-        else:
-            return redirect(url_for('login'))
+        name = request.form["name"]
+        user_id = session['id']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
+        mysql.connection.commit()
+        print('favorite movie added to db')
+        return name + " Hello"
     return render_template("base.html")
 
 
