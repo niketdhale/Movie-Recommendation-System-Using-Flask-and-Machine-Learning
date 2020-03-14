@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Movie Recommendation System</title>
+	<link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
+	{% block link %}{% endblock %}
+</head>
+<header>
+	<div class="movie_title">
+		<div class="movie_icon"><img content="image/svg+xml" src="static/movie_icon.svg" width="100px" height="100px"/></div>
+		<div class="movie_title_name">Movie Recommendation System</div>
+	</div>
+	<nav>
+		<a href="{{ url_for('home') }}">Home</a>
+		<a href="{{ url_for('recommendation') }}">Recommendation</a>
+		<a href="#">About</a>
+		{% if user_logged_in %}
+		<a href="{{ url_for('account') }}">Account</a>
+		<a href="{{ url_for('logout') }}">Logout</a>
+		{% else %}
+		<a href="{{ url_for('login') }}">Login</a>
+		<a href="{{ url_for('register') }}">Sign Up</a>
+		{% endif %}
+		
+	</nav>
+</header>
+{% block body %}
+{% endblock %}
+{% block include_js %}
+{% endblock %}
+<div class="footer">
+	<div class="footer-content">
+			©Developed by Batch B2
+			{% if user_logged_in %}
+				User is Logged IN
+			{% else %}
+				User is not logged In
+			{% endif %}
+	</div>
+</div>
+	
+</html>

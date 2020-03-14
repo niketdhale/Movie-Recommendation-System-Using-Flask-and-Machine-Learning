@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html >
+<head>
+	<!-- Bootstrap 4 CDN JS and CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!--  -->
+	<!-- Font Awesone Icons -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	<!--  -->
+	
+
+</head>
+
+<body>
+<br>
+
+<div class="container">
+	<center><h1>Movie Recommender System</h1></center><br>
+	<form class="form-container" action="{{ url_for('predict')}}" method="post">
+		<div class="row"> 
+			<div class="col-md-1"></div>
+			<div class="col-md-8 autocomplete" style="padding-right:2px">
+				<input type="text" name="movie" class="form-control" placeholder="Enter Movie Name" required="required" id="myInput" autocomplete="off"> 
+			</div>
+			<div class="col-md-2" style="padding-left: 2px">
+				<button type="submit" class=" btn btn-primary btn-block">
+					<span class="fas fa-search fa-lg" aria-hidden="true"></span>
+					Submit
+				</button>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</form>
+
+	<br>
+	<br>
+		{%- if movie_name -%}
+			<center><h3>You Searched for Movie "{{ movie_name }}"</h3></center>
+		{% endif %}
+	<br>
+<!--	<div class="row">-->
+<!--		{% for i in prediction_text %}-->
+<!--			<div class="col-md-3" style="padding-left: 5px;padding-right: 5px;padding-bottom: 15px">-->
+<!--				<div class="card bg-dark text-white" style="height: 350px;box-shadow: 16px 15px 17px -13px rgba(0,0,0,0.75);">-->
+<!--					<img class="card-img-top" src="static/image.jpg" alt="Movie Poster" height="175px">-->
+<!--					<div class="card-body">-->
+<!--						<h4 class="card-title">{{ i }}</h4>-->
+<!--					</div>-->
+<!--					<div class="card-footer"><a href="#" class="btn btn-light ">Details</a></div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		{% endfor %}-->
+<!--	</div>-->
+	<div class="row">
+		{% for i in movie_details %}
+			<div class="col-md-3" style="padding-left: 5px;padding-right: 5px;padding-bottom: 15px">
+				<div class="card bg-dark text-white" style="height: 350px;box-shadow: 16px 15px 17px -13px rgba(0,0,0,0.75);">
+					{% if i.poster == 'None' %}
+						<img class="card-img-top" src="static/image.jpg" alt="Movie Poster" height="175px">
+					{% else %}
+						<img class="card-img-top" src="{{ i.poster }}" alt="Movie Poster" height="175px">
+					{% endif %}
+					<div class="card-body">
+						<h4 class="card-title">{{ i.title }}</h4>
+					</div>
+					<div class="card-footer"><a href="#" class="btn btn-light ">Details</a></div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	
+
+</div>
+<script type="text/javascript" src="static/autocomplete.js"></script>
+</body>
+</html>

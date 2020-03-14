@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+    {% block link %}
+	<!-- Bootstrap 4 CDN JS and CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <!--  -->
+  <!-- Font Awesone Icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!--  -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='model.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='recommend.css') }}">
+
+
+
+  <link href="https://fonts.googleapis.com/css?family=PT+Serif&display=swap" rel="stylesheet">
+
+  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  {% endblock %}
+<!-- <style type="text/css">
+	.row{
+		width: 100%;
+		margin: 10% auto;
+		height: 420px;
+		background-color: transparent;
+	}
+	.col-md-3{
+		/*border:2px solid black;*/
+		padding: 0px 10px;
+	}
+	.poster{
+		width: 100%;
+		height: 350px;
+	}
+	.poster img{
+		border:0px solid white;
+		border-radius: 10px;
+		box-shadow: 1px 6px 15px -7px rgba(0,0,0,0.75);
+	}
+	.movie_details{
+		padding:5px;
+		text-align: left;
+		font-size: 20px;
+	}
+	#year{
+		font-size: 15px;
+		margin-bottom: 0;
+	}
+	body{
+		background-color: white;
+	}
+	.row{
+		display: flex;
+		flex-direction: row;
+		background-color: white;
+		height: 100%;
+		padding: 30px 20px 0px 20px;
+		border-radius: 10px;
+		box-shadow: 0px 0px 30px -3px rgba(0,0,0,0.75);
+	}
+	.search{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-top: 7%;
+		}
+		.search-btn button{
+			font-size: 20px;
+			width: 200px;
+			padding: 5px 10px;
+			border-radius: .25em;
+			background-color: #007bff;
+			border-color: #007bff;
+			color: white;
+		}
+		.search-input-box{
+			margin-right: 5px;
+			background: aliceblue;
+  			overflow: hidden;
+			width: 700px;
+			border-radius: 6px;
+			border:1px solid #ced4da;
+		}
+		.search-input-box input{
+			background: transparent;
+			font-size: 20px;
+			width: 100%;
+			padding: 5px 7px;
+			border:0;
+		}
+		.suggestion{
+			width: 700px;
+			position: absolute;
+			z-index: 99;
+			background: aliceblue;
+			border:1px;
+			border-radius: 6px;
+		}
+		.suggestion > div{
+			padding: 10px;
+			font-size: 20px;
+			border: 1px solid #ced4da; 
+		}
+		.suggestion > div:hover{
+			background-color:lightblue;
+			cursor: pointer;
+		}
+	
+		
+</style> -->
+{% block body %}
+<body>
+<div class="search">
+    <form  method="POST" action="{{ url_for('predict') }}">
+		<div class="search-box">		
+				<div class="search-input-box">
+						<input type="text" name="search-box" placeholder="Enter Movie Name" class="search-input" autocomplete="off" id="suggest">
+						<div class="suggestion">
+						
+						</div>
+				</div>
+		</div>
+		<div class="search-btn">
+			<button type="submit"><span class="fas fa-search fa-lg" aria-hidden="true"></span> Submit</button>
+        </div>
+    </form>
+</div>
+{% if movie_name %}
+<center><h3 style="background: white;margin: 40px 20%;">You Searched For movie "{{ movie_name }}"</h3></center>
+{% else %}
+    
+{% endif %}
+
+<div class="above_body">
+	<div class="container">
+		<div class="row">
+			{% if movie_name %}
+			{% else %}
+				<h3 style="text-align: center;width: 100%">Enter Movie Title to Generate Recommendations...</h3>
+			{% endif %}
+
+    {% for i in movie_details %}
+        {% if i.None %}
+        {% else %}
+	    <div class="col-md-3">
+			<div class="poster">
+                <!-- <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/tpoVEYvm6qcXueZrQYJNRLXL88s.jpg" width="100%" height="350px"> -->
+                <img src="{{ i.poster }}" width="100%" height="350px">
+			</div>
+			<div class="movie_details">
+				<p id="year">{{ i.year }} || {{ i.imdb_score }} </p>
+				<p id="movie_title" name="{{ i.title }}"><b>{{ i.title }}</b></p>
+			</div>
+	    </div>
+		{% endif %}
+    {% endfor %}
+		</div>
+	</div>
+</div>
+
+{% for j in movie_details %}
+        {% if j.None %}
+        {% else %}
+            <div class="model" id="{{ j.title }}">
+                <div class="model-body">
+                    <div class="poster_model">
+                        <img src="{{ j.poster }}" width="100%" height="100%">
+                    </div>
+                    <div class="details">
+                        <span class="close" id="close_btn">&times;</span>
+                        <div class="content">
+                            <h1>{{ j.title }} <span id="year_of_movie">{{ j.year }}</span></h1>
+                            <div class="subheader">
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/hourglass-sand-bottom.png"><p>{{ j.running_time }}</p>
+                                </span>
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/money-bag.png"><p>{{ j.budget }}</p>
+                                </span>
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/imdb.png" ><p>{{ j.imdb_score }}</p>
+                                </span>
+                            </div>
+                            <div class="actor">
+                                <div class="actor_title"><b>Actor : </b></div>
+                                <div class="actor_name">{{ j.actor_1 }}, {{ j.actor_2 }}, {{ j.actor_3 }}</div>
+                            </div>
+                            <div class="director">
+                                <div class="director_title"><b>Director : </b></div>
+                                <div class="director_name">{{ j.director }}</div>
+                            </div>
+                            <div class="genre">
+                                <div class="genre_title"><b>Genre : </b></div>
+                                <div class="genre_name">
+                                    <span>{{ j.genre }}</span>
+                                </div>
+                            </div>
+                            <div class="keyword">
+                                <div class="keyword_title"><b>Keywords : </b>	</div>
+                                <div class="keyword_name">
+                                    <span>{{ j.keyword }}</span>
+                                </div>
+                            </div>
+                            <div class="gross">
+                                <div class="gross_title"><b>BoxOffice : </b></div>
+                                <div class="gross_name">{{ j.box_office }}</div>
+                            </div>
+                            <div class="content_language">
+                                <div class="content_rating"><b>Content Rating :</b> {{ j.content_rating }}</div>
+                                <div class="language"><b>Language :</b> {{ j.language }}</div>
+                            </div>
+                            <div class="country_color">
+                                <div class="country"><b>Country :</b> {{ j.country }} </div>
+                                <div class="color"><b>Color :</b> {{ j.color }}</div>
+							</div>
+							<div class="favorite-button">
+								<button id="fav-btn" onclick="do_ajax();" name="{{ j.title }}">Add to Favorite <i class="fa fa-plus" aria-hidden="true" id="fav-logo"></i></button>
+							</div>
+                            <div class="imdb_link">
+                                <div class="imdb_name">Explore More at </div>
+                                <div class="imdb_image">
+                                    <a href="{{ j.imdb_link }}"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+{% endfor %}
+
+</body>
+{% endblock %}
+{% block include_js %}
+<script src="{{ url_for('static', filename='autocomplete_for_input.js') }}"></script>
+<script src="{{ url_for('static', filename='model.js') }}"></script>
+{% endblock %}
+<!-- <script type="text/javascript">
+	const movie = [
+	{title:'Avenger'},
+	{title:'Deadpool'},
+	{title:'Avatar'}
+	];
+	
+	const searchInput = document.querySelector('.search-input');
+	const suggestionsPanel = document.querySelector('.suggestion');
+	const input = searchInput.value;
+
+	searchInput.addEventListener('keyup',function(){
+		const input = searchInput.value;
+		suggestionsPanel.innerHTML = '';
+		const suggestions = movie.filter(function(movie){
+			return movie.title.toLowerCase().startsWith(input);
+		});
+		suggestions.forEach(function(suggested){
+			const div = document.createElement('div');
+			div.setAttribute("id", "movie_name");
+			div.innerHTML = suggested.title;
+			suggestionsPanel.appendChild(div);
+			div.addEventListener("click",function(){
+				searchInput.value = div.innerHTML;
+				suggestionsPanel.innerHTML = '';
+			});
+		});
+		function closelist(){
+			suggestionsPanel.forEach(function(){
+				suggestionsPanel.removeChild();
+			});
+		}
+		if( input == ''){
+			suggestionsPanel.innerHTML = '';
+		}
+	})
+</script> -->

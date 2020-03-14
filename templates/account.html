@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='account.css') }}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="account">
+            <div class="basic_info">
+                    <div id="user_title">User Details</div><br>
+                    <div class="user">Username: {{ user_details['Username'] }}</div>
+                    <div class="user">Email: {{ user_details['Email'] }}</div>
+                    <div class="user">Age: {{ user_details['Age'] }}</div>
+                    <div class="user">Mobile No: {{ user_details['Mob_no'] }}</div>
+                </div>
+                <div class="favorite_list">
+                    <div id="fav_title">Your Favorite List</div>
+                    <div class="fav-movie">
+                        <div class="movie_name" id="movie_title">Movie Name</div>
+                        <div class="action" id="movie_action">Action</div>
+                    </div>
+                    {% for i in fav_movie_list %}
+                    <div class="fav-movie">
+                        <div class="movie_name">{{ i.favorite_movie }}</div>
+                        <div class="action"><button id="remove_btn" name="{{ i.favorite_movie }}">Remove <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                        </button></div>
+                    </div>
+                    {% endfor %}
+                </div>
+    </div>
+</body>
+
+{% endblock %}
+
+{% block include_js %}
+<script src="{{ url_for('static', filename='account.js') }}"></script>
+{% endblock %}

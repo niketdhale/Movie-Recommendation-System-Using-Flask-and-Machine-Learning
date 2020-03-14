@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block link %}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="home_block">
+            <div class="top_10_block">
+                    <div class="top_10_title">
+                        Top 10 IMDB Movies :
+                    </div>
+                    <!-- {% for i in top_10_imdb_movies %}
+                    <div class="movie_item">
+                        <div class="movie_poster">
+                                <img src="{{ i.poster }}"  width="100%" height="100%">
+                        </div>
+                        <div class="movie_d">
+                            <div class="rating_year">
+                                    <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">{{ i.imdb_score }}</div>
+                                    <div class="year"><i class="far fa-calendar"></i>{{ i.year }}</div>
+                            </div>
+                            <div class="title">
+                                {{ i.title }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %} -->
+                    <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/9O7gLzmreU0nGkIB6K3BsJbzvNv.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">9.3</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1994</div>
+                                </div>
+                                <div class="title">
+                                    The Shawshank Redemption
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">9.2</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1972</div>
+                                </div>
+                                <div class="title">
+                                    The Godfather
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BODAwNjYyNjcxOF5BMl5BanBnXkFtZTgwODcyMDA1OTE@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">9.1</div>
+                                        <div class="year"><i class="far fa-calendar"></i>2016</div>
+                                </div>
+                                <div class="title">
+                                    Kickboxer: Vengeance
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMTk4ODQzNDY3Ml5BMl5BanBnXkFtZTcwODA0NTM4Nw@@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.5</div>
+                                        <div class="year"><i class="far fa-calendar"></i>2012</div>
+                                </div>
+                                <div class="title">
+                                    The Dark Knight
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/tHbMIIF51rguMNSastqoQwR0sBs.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1974</div>
+                                </div>
+                                <div class="title">
+                                    The Godfather: Part II
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BOTQ5NDI3MTI4MF5BMl5BanBnXkFtZTgwNDQ4ODE5MDE@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1966</div>
+                                </div>
+                                <div class="title">
+                                    The Good, the Bad and the Ugly
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://image.tmdb.org/t/p/w370_and_h556_bestv2/50LoR9gJhbWZ5PpoHgi8MNTYgzd.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>2003</div>
+                                </div>
+                                <div class="title">
+                                    The Lord of the Rings: The Return of the King
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BODQwOTc5MDM2N15BMl5BanBnXkFtZTcwODQxNTEzNA@@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1957</div>
+                                </div>
+                                <div class="title">
+                                    12 Angry Men
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMTkxMTA5OTAzMl5BMl5BanBnXkFtZTgwNjA5MDc3NjE@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1994</div>
+                                </div>
+                                <div class="title">
+                                    Pulp Fiction
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="movie_item">
+                            <div class="movie_poster">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNDE4OTMxMTctNmRhYy00NWE2LTg3YzItYTk3M2UwOTU5Njg4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_UX182_CR0,0,182,268_AL_.jpg"  width="100%" height="100%">
+                            </div>
+                            <div class="movie_d">
+                                <div class="rating_year">
+                                        <div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">8.9</div>
+                                        <div class="year"><i class="far fa-calendar"></i>1993</div>
+                                </div>
+                                <div class="title">
+                                    Schindler&#39;s List
+                                </div>
+                            </div>
+                        </div>
+
+
+
+         
+            </div>
+    </div>
+</body>
+{% endblock %}
+{% block include_js %}
+{% endblock %}
