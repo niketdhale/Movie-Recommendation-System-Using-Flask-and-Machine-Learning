@@ -2,6 +2,7 @@
 
 {% block link %}
 		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='signup.css') }}">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
 {% endblock %}
 {% block body %}
@@ -38,4 +39,8 @@
 		</form>
 	</div>
 </body>
+{% endblock %}
+{% block include_js %}
+<script src="{{ url_for('static', filename='particles.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}

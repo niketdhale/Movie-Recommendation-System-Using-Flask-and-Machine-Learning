@@ -5,8 +5,9 @@
 <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
 {% endblock %}
 
-{% block body %}
-<body>
+
+
+    {% block body %}
     <div class="home_block">
             <div class="top_10_block">
                     <div class="top_10_title">
@@ -178,12 +179,11 @@
                             </div>
                         </div>
 
-
-
-         
             </div>
     </div>
-</body>
+
 {% endblock %}
 {% block include_js %}
+<script src="{{ url_for('static', filename='particles.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}

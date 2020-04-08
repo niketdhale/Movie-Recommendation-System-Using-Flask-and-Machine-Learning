@@ -65,8 +65,10 @@
 			
 					request.onreadystatechange = function(){
 						if(this.readyState == 4 && this.status == 200){
-							console.log(this.responseText);
-							console.log('inside buttion function');
+							if(this.responseText == 'session_exist'){
+								console.log(this.responseText);
+							//console.log(this.responseText);
+							//console.log('inside buttion function');
 							// result_div.innerHTML = this.responseText;
 							//fav_logo.classList.replace('fa-plus','fa-check');
 							var fav_logo = document.createElement('i');
@@ -75,6 +77,12 @@
 							btn.innerHTML = 'Added To Favorites ';
 							btn.appendChild(fav_logo);
 							btn.disabled = true;
+							}else{
+								console.log(this.responseText);
+								var link_to_login = document.createElement('a');
+								link_to_login.setAttribute("href","{{ url_for('login') }}");
+								btn.appendChild(link_to_login);
+							}
 						} else{
 							// result_div.innerHTML = 'error';		
 						}
@@ -94,7 +102,6 @@
 				fav_movie.remove();
 			}
 		});
-
 
 
 

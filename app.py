@@ -29,6 +29,10 @@ mysql = MySQL(app)
 def home():
     return render_template('home.html',user_logged_in=False)
 
+@app.route('/base')
+def base():
+    return render_template('base.html') 
+
 
 @app.route('/recommendation')
 def recommendation():
@@ -158,14 +162,21 @@ def register():
 
 @app.route("/favorite", methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-        name = request.form["name"]
-        user_id = session['id']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
-        mysql.connection.commit()
-        print('favorite movie added to db')
-        return name + " Hello"
+    if session:
+        print('session exist')
+        return "session_exist"
+    else:
+        print('session not exist')
+        return "session_not_exist"
+        # return redirect(url_for('login'))
+    # if request.method == "POST":
+    #     name = request.form["name"]
+    #     user_id = session['id']
+    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #     cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
+    #     mysql.connection.commit()
+    #     print('favorite movie added to db')
+    #     return name + " Hello"
     return render_template("base.html")
 
 

@@ -43,7 +43,6 @@ form{
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 4%;
     }
     .search-btn button{
         font-size: 20px;
@@ -53,6 +52,7 @@ form{
         background-color: #007bff;
         border-color: #007bff;
         color: white;
+        box-shadow: 5px 3px 45px 9px rgba(0,0,0,0.31);
     }
     .search-input-box{
         margin-right: 5px;
@@ -61,6 +61,7 @@ form{
         width: 700px;
         border-radius: 6px;
         border:1px solid #ced4da;
+        box-shadow: -5px 3px 45px 3px rgba(0,0,0,0.31);
     }
     .search-input-box input{
         background: transparent;
@@ -85,4 +86,47 @@ form{
     .suggestion > div:hover{
         background-color:lightblue;
         cursor: pointer;
+    }
+
+    .search{
+        position:absolute;
+        padding-left: 20%;
+        padding-top: 4%;
+        z-index: 100;
+        margin-top: 12%;
+    }
+    .above_body{
+        position: absolute;
+        top: 45%;
+        left: 12%;
+        width: 1110px;
+    }
+    #if_movie_searched{
+    font-size: 25px;
+    font-weight: 600;
+    position: absolute;
+    top: 42%;
+    left: 25%;
+    width: 800px;
+    padding: 15px;
+    background: white;
+    border-radius: 6px;
+    text-align: center;
+    }
+
+    .footer-content{
+        z-index: 100;
+        position: fixed;
+        /* margin-top: 70%; */
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        background-color: #c3c7c0e3;
+        font-size: 20px;
+        height: 50px;
+        padding: 5px 0px;
+    }
+    body{
+        padding: 0;
+        margin: 0;
     }

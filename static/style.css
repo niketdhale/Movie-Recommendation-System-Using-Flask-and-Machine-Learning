@@ -12,7 +12,11 @@ body {
     width: 400px;
     background-color: #ffffff;
     box-shadow: 0 0 9px 0 rgba(0, 0, 0, 0.3);
-    margin: 100px auto;
+    z-index: 100;
+    position: absolute;
+    margin: 100px 37%;
+    margin-top: 13%;
+    margin-bottom: 0%;
 }
 .login h1, .register h1 {
     text-align: center;
@@ -143,4 +147,16 @@ body.loggedin {
 .content > div p {
   padding: 5px;
   margin: 0 0 10px 0;
+}
+
+.footer-content{
+    z-index: 100;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: #c3c7c0e3;
+    font-size: 20px;
+    height: 50px;
+    padding: 5px 0px;
 }

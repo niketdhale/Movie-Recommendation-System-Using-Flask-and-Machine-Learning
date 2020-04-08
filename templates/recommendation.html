@@ -131,7 +131,9 @@
     </form>
 </div>
 {% if movie_name %}
-<center><h3 style="background: white;margin: 40px 20%;">You Searched For movie "{{ movie_name }}"</h3></center>
+<div id="if_movie_searched">
+	You Searched For movie "{{ movie_name }}"
+</div>
 {% else %}
     
 {% endif %}
@@ -239,6 +241,8 @@
 {% block include_js %}
 <script src="{{ url_for('static', filename='autocomplete_for_input.js') }}"></script>
 <script src="{{ url_for('static', filename='model.js') }}"></script>
+<script src="{{ url_for('static', filename='particles.js') }}"></script>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
 {% endblock %}
 <!-- <script type="text/javascript">
 	const movie = [
