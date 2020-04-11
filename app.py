@@ -51,38 +51,21 @@ def predict():
     # for i in predict:
     #     data.append(function_to_return_link(i))
     #     print(data)
-
+    searched_movie_details = []
     data = []
-    data.append(Return_details(movie_input))
+    searched_movie_details.append(Return_details(movie_input))
+    
     for i in predict:
         data.append(Return_details(i))
         print(data)
+    #print(searched_movie_details)
 
     # return render_template('index.html',movie_name = movie_input, prediction_text=predict,movie_details=data)
-    return render_template('recommendation.html', movie_name=movie_input, movie_details=data)
+    return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details)
 
 
-# @app.route('/sign_up', methods=['GET', 'POST'])
-# def sign_up():
-#     if request.method == 'POST':
-#         username = request.form.get("username")
-#         email = request.form.get("email")
-#         mob_no = request.form.get("mob_no")
-#         age = request.form.get("age")
-#         password = request.form.get("password")
-#         cur = mysql.connection.cursor()
-#         cur.execute("INSERT INTO user( `Username`, `Email`, `Mob_no`, `Age`, `Password`) VALUES (%s,%s,%s,%s,%s)",(username, email, mob_no, age, password))
-#         mysql.connection.commit()
-#         cur.close()
-#         print(username, email, mob_no, age, password)
-#         print('success')
-#         return render_template('sign_in.html')
-
-#     return render_template("sign_up.html")
-
-
-@app.route('/login/', methods=['GET', 'POST'])
-def login():
+@app.route('/login_page', methods=['GET', 'POST'])
+def login_page():
     # Output message if something goes wrong...
     msg = ''
     # Check if "username" and "password" POST requests exist (user submitted form)
@@ -107,20 +90,11 @@ def login():
             # Account doesnt exist or username/password incorrect
             msg = 'Incorrect username/password!'
     # Show the login form with message (if any)
-    return render_template('login.html', msg=msg)
+    return render_template('login_page.html', msg=msg) 
 
-@app.route('/login/logout')
-def logout():
-    # Remove session data, this will log the user out
-   session.pop('loggedin', None)
-   session.pop('id', None)
-   session.pop('username', None)
-   # Redirect to login page
-   return redirect(url_for('login'))
-
-@app.route('/pythonlogin/register', methods=['GET', 'POST'])
-def register():
-    # Output message if something goes wrong...
+@app.route('/sign_up_page', methods=['GET', 'POST'])
+def sign_up_page():
+     # Output message if something goes wrong...
     msg = ''
     # Check if "username", "password" and "email" POST requests exist (user submitted form)
     if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and 'mobile' in request.form and 'age' in request.form:
@@ -157,26 +131,50 @@ def register():
         # Form is empty... (no POST data)
         msg = 'Please fill out the form!'
     # Show registration form with message (if any)
-    return render_template('sign_up.html', msg=msg)
+    return render_template('sign_up_page.html', msg=msg) 
+
+
+
+# @app.route('/sign_up', methods=['GET', 'POST'])
+# def sign_up():
+#     if request.method == 'POST':
+#         username = request.form.get("username")
+#         email = request.form.get("email")
+#         mob_no = request.form.get("mob_no")
+#         age = request.form.get("age")
+#         password = request.form.get("password")
+#         cur = mysql.connection.cursor()
+#         cur.execute("INSERT INTO user( `Username`, `Email`, `Mob_no`, `Age`, `Password`) VALUES (%s,%s,%s,%s,%s)",(username, email, mob_no, age, password))
+#         mysql.connection.commit()
+#         cur.close()
+#         print(username, email, mob_no, age, password)
+#         print('success')
+#         return render_template('sign_in.html')
+
+#     return render_template("sign_up.html")
+
+
+@app.route('/logout')
+def logout():
+    # Remove session data, this will log the user out
+   session.pop('loggedin', None)
+   session.pop('id', None)
+   session.pop('username', None)
+   # Redirect to login page
+   return redirect(url_for('home'))
 
 
 @app.route("/favorite", methods=['GET', 'POST'])
 def index():
-    if session:
-        print('session exist')
-        return "session_exist"
-    else:
-        print('session not exist')
-        return "session_not_exist"
         # return redirect(url_for('login'))
-    # if request.method == "POST":
-    #     name = request.form["name"]
-    #     user_id = session['id']
-    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
-    #     mysql.connection.commit()
-    #     print('favorite movie added to db')
-    #     return name + " Hello"
+    if request.method == "POST":
+        name = request.form["name"]
+        user_id = session['id']
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
+        mysql.connection.commit()
+        print('favorite movie added to db')
+        return name + " Hello"
     return render_template("base.html")
 
 

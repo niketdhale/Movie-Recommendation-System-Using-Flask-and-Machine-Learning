@@ -36,7 +36,6 @@
 				}
 		});
 
-
 		var closeBtns = [...document.querySelectorAll(".close")];
 		closeBtns.forEach(function(btn){
 			btn.onclick = function(){
@@ -49,6 +48,12 @@
 			if(event.target.className === "model"){
 				event.target.style.display = "none";
 			}
+		}
+
+		var searched_movie_title = document.getElementById('title');
+		var searched_movie_model = document.getElementById('searched_movie_model');
+		searched_movie_title.onclick = function(){
+			searched_movie_model.style.display = "block";
 		}
 
 /////// Favorite Button Js ////////////////////

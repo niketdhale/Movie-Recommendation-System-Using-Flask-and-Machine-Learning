@@ -131,14 +131,43 @@
     </form>
 </div>
 {% if movie_name %}
-<div id="if_movie_searched">
-	You Searched For movie "{{ movie_name }}"
+<div class="movie_searched">
+	<div id="searched_movie_">Searched Movie</div>
+	<!-- <div id="if_movie_searched">
+		You Searched For movie "{{ movie_name }}"
+	</div> -->
+	{% for j in searched_movie_detail %}
+	<div id="movie_item">
+			<div class="movie_poster">
+					<img src="{{ j.poster }}"  width="100%" height="100%">
+			</div>
+			<div class="movie_d">
+				<div class="rating_year">
+						<div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">{{ j.imdb_score }}</div>
+						<div class="year"><i class="far fa-calendar"></i>{{ j.year }}</div>
+				</div>
+				<div class="title" id="title" name="{{ j.title }}">
+					{{ movie_name }}
+				</div>
+			</div>
+	</div>
+	{% endfor %}
 </div>
 {% else %}
     
 {% endif %}
 
-<div class="above_body">
+<div class="above_body" id="above_body">
+	{% if movie_name %}
+	Recommendations
+	<script>
+		document.getElementById('above_body').style.borderRight = "5px solid rgba(0,0,0,0.4)";
+	</script>
+	{% else %}
+    <script>
+		document.getElementById('above_body').style.border = "0";
+	</script>
+	{% endif %}
 	<div class="container">
 		<div class="row">
 			{% if movie_name %}
@@ -154,9 +183,18 @@
                 <!-- <img src="https://image.tmdb.org/t/p/w185_and_h278_bestv2/tpoVEYvm6qcXueZrQYJNRLXL88s.jpg" width="100%" height="350px"> -->
                 <img loading="lazy" src="{{ i.poster }}" width="100%" height="350px">
 			</div>
-			<div class="movie_details">
+			<!-- <div class="movie_details">
 				<p id="year">{{ i.year }} || {{ i.imdb_score }} </p>
 				<p id="movie_title" name="{{ i.title }}"><b>{{ i.title }}</b></p>
+			</div> -->
+			<div class="movie_details">
+					<div class="rating_year">
+							<div class="rating"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px" class="fab">{{ i.imdb_score }}</div>
+							<div class="year"><i class="far fa-calendar"></i>{{ i.year }}</div>
+					</div>
+					<div class="title" id="movie_title" name="{{ i.title }}">
+							{{ i.title }}
+					</div>
 			</div>
 	    </div>
 		{% endif %}
@@ -235,6 +273,92 @@
             </div>
         {% endif %}
 {% endfor %}
+
+
+
+
+
+{% for j in searched_movie_detail %}
+        {% if j.None %}
+        {% else %}
+            <div class="model" id="searched_movie_model">
+                <div class="model-body">
+                    <div class="poster_model">
+                        <img src="{{ j.poster }}" width="100%" height="100%">
+                    </div>
+                    <div class="details">
+                        <span class="close" id="close_btn">&times;</span>
+                        <div class="content">
+                            <h1>{{ j.title }} <span id="year_of_movie">{{ j.year }}</span></h1>
+                            <div class="subheader">
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/hourglass-sand-bottom.png"><p>{{ j.running_time }}</p>
+                                </span>
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/money-bag.png"><p>{{ j.budget }}</p>
+                                </span>
+                                <span id="sub">
+                                    <img src="https://img.icons8.com/color/48/000000/imdb.png" ><p>{{ j.imdb_score }}</p>
+                                </span>
+                            </div>
+                            <div class="actor">
+                                <div class="actor_title"><b>Actor : </b></div>
+                                <div class="actor_name">{{ j.actor_1 }}, {{ j.actor_2 }}, {{ j.actor_3 }}</div>
+                            </div>
+                            <div class="director">
+                                <div class="director_title"><b>Director : </b></div>
+                                <div class="director_name">{{ j.director }}</div>
+                            </div>
+                            <div class="genre">
+                                <div class="genre_title"><b>Genre : </b></div>
+                                <div class="genre_name">
+                                    <span>{{ j.genre }}</span>
+                                </div>
+                            </div>
+                            <div class="keyword">
+                                <div class="keyword_title"><b>Keywords : </b>	</div>
+                                <div class="keyword_name">
+                                    <span>{{ j.keyword }}</span>
+                                </div>
+                            </div>
+                            <div class="gross">
+                                <div class="gross_title"><b>BoxOffice : </b></div>
+                                <div class="gross_name">{{ j.box_office }}</div>
+                            </div>
+                            <div class="content_language">
+                                <div class="content_rating"><b>Content Rating :</b> {{ j.content_rating }}</div>
+                                <div class="language"><b>Language :</b> {{ j.language }}</div>
+                            </div>
+                            <div class="country_color">
+                                <div class="country"><b>Country :</b> {{ j.country }} </div>
+                                <div class="color"><b>Color :</b> {{ j.color }}</div>
+							</div>
+							<div class="favorite-button">
+								<button id="fav-btn" onclick="do_ajax();" name="{{ j.title }}">Add to Favorite <i class="fa fa-plus" aria-hidden="true" id="fav-logo"></i></button>
+							</div>
+                            <div class="imdb_link">
+                                <div class="imdb_name">Explore More at </div>
+                                <div class="imdb_image">
+                                    <a href="{{ j.imdb_link }}"><img src="https://img.icons8.com/color/48/000000/imdb.png" width="40px" height="40px"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 {% endblock %}

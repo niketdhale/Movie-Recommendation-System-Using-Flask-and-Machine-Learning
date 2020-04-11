@@ -48,6 +48,7 @@ box-shadow: 1px 6px 15px -7px rgba(0,0,0,0.75);
     display: flex;
     align-items: center;
     width: 50%;
+    justify-content: center;
 }
 .fab{
     padding-right:10px;

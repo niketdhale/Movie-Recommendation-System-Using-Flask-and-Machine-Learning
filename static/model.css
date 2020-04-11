@@ -6,6 +6,7 @@ body{
 	width: 60%;
 	margin:10% auto;
 	height: 450px;
+	overflow: hidden;
 }
 .poster_model{
 	/*background-color: blue;*/
