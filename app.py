@@ -36,7 +36,9 @@ def base():
 
 @app.route('/recommendation')
 def recommendation():
-    return render_template('recommendation.html')
+    if session['id']:
+        return render_template('recommendation.html',user_logged_in=True)
+    return render_template('recommendation.html',user_logged_in=False)
 
 
 @app.route('/predict', methods=['POST'])
@@ -61,7 +63,9 @@ def predict():
     #print(searched_movie_details)
 
     # return render_template('index.html',movie_name = movie_input, prediction_text=predict,movie_details=data)
-    return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details)
+    if session['id']:
+        return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=True)
+    return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=False)
 
 
 @app.route('/login_page', methods=['GET', 'POST'])
