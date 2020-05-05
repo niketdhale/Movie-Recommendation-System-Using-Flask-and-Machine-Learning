@@ -36,9 +36,11 @@ def base():
 
 @app.route('/recommendation')
 def recommendation():
-    if session['id']:
-        return render_template('recommendation.html',user_logged_in=True)
-    return render_template('recommendation.html',user_logged_in=False)
+    try:
+        if session['loggedin']:
+            return render_template('recommendation.html',user_logged_in=True)
+    except KeyError:
+        return render_template('recommendation.html',user_logged_in=False)
 
 
 @app.route('/predict', methods=['POST'])
@@ -63,9 +65,11 @@ def predict():
     #print(searched_movie_details)
 
     # return render_template('index.html',movie_name = movie_input, prediction_text=predict,movie_details=data)
-    if session['id']:
-        return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=True)
-    return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=False)
+    try:
+        if session['loggedin']:
+            return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=True)
+    except KeyError:
+        return render_template('recommendation.html', movie_name=movie_input, movie_details=data,searched_movie_detail=searched_movie_details,user_logged_in=False)
 
 
 @app.route('/login_page', methods=['GET', 'POST'])
@@ -171,14 +175,17 @@ def logout():
 @app.route("/favorite", methods=['GET', 'POST'])
 def index():
         # return redirect(url_for('login'))
-    if request.method == "POST":
-        name = request.form["name"]
-        user_id = session['id']
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
-        mysql.connection.commit()
-        print('favorite movie added to db')
-        return name + " Hello"
+    try:
+        if request.method == "POST" and session['loggedin']:
+            name = request.form["name"]
+            user_id = session['id']
+            cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+            cursor.execute("INSERT INTO favorite(`user_id`, `favorite_movie`) VALUES (%s,%s)",(user_id,name))
+            mysql.connection.commit()
+            print('favorite movie added to db')
+            return name + " Hello"
+    except KeyError:
+            return 'Guest'
     return render_template("base.html")
 
 

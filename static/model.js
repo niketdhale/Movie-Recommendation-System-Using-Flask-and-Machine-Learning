@@ -58,6 +58,27 @@
 
 /////// Favorite Button Js ////////////////////
 		var request = new XMLHttpRequest();
+		var favoritebutton = [...document.querySelectorAll('#fav-btn')];
+
+		
+			// var user_type = 'guest';
+			// request.open('GET','/favorite',true);
+			// request.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
+			// request.send("user_type=");
+
+			// request.onreadystatechange = function(){
+			// 	if(this.readyState == 4 && this.status == 200){
+			// 		console.log(this.responseText);
+			// 		if(this.responseText === 'Guest'){
+			// 			favoritebutton.forEach(function(button){
+			// 				button.style.display = 'none';
+			// 			})
+			// 		}
+			// 	}
+			// }
+		
+		// var guest_user = {{ guest_user|safe }};
+		// console.log(guest_user);
 		
 		var fav = [...document.querySelectorAll('#fav-btn')];
 			fav.forEach(function(btn){
@@ -71,7 +92,15 @@
 					request.onreadystatechange = function(){
 						if(this.readyState == 4 && this.status == 200){
 							//console.log(this.responseText);
-							//console.log('inside buttion function');
+							if(this.responseText == 'Guest'){
+								// alert('Login to add movies to favorites');
+								swal({
+									title:"Alert",
+									text:"Please Login to Continue",
+									icon:"warning"
+								});
+							}else{
+								//console.log('inside buttion function');
 							// result_div.innerHTML = this.responseText;
 							//fav_logo.classList.replace('fa-plus','fa-check');
 							var fav_logo = document.createElement('i');
@@ -86,6 +115,8 @@
 							// 	link_to_login.setAttribute("href","{{ url_for('login') }}");
 							// 	btn.appendChild(link_to_login);
 							// }
+							}
+							
 						} else{
 							// result_div.innerHTML = 'error';		
 						}
